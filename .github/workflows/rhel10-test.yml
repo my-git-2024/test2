@@ -1,0 +1,12 @@
+name: RHEL 10 Lab Test
+on: [push]
+jobs:
+  test-job:
+    runs-on: self-hosted  # Or your specific label like 'rhel10-lab'
+    steps:
+      - uses: actions/checkout@v4
+      - name: System Info
+        run: |
+          cat /etc/redhat-release
+          uname -r
+
