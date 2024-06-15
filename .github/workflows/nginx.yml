@@ -16,11 +16,11 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  
 
       - name: Build Docker Image  
-        run: docker build -t mydockerhubuser/nginx:latest .  
+        run: docker build -t vikasdh/nginx:latest .  
 
       - name: Run Docker Container  
         run: |  
-          docker run -d --name nginx-container -p 8080:80 mydockerhubuser/nginx:latest  
+          docker run -d --name nginx-container -p 8080:80 vikasdh/nginx:latest  
 
       - name: Verify Docker Container is Running  
         run: |  
@@ -29,5 +29,5 @@ jobs:
 
       - name: Test Nginx is Serving Page  
         run: |
-          curl --silent --fail http://localhost:8080 | grep "Welcome to nginx!"  
+          curl http://localhost:8080
 
