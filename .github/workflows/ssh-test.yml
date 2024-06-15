@@ -25,4 +25,4 @@ jobs:
 
       - name: Test SSH Connection
         run: |
-          ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa your_user@${{ secrets.SSH_HOST }} "echo 'SSH connection successful'"
+          ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa vikasdh@${{ secrets.SSH_HOST }} "echo 'SSH connection successful'"
