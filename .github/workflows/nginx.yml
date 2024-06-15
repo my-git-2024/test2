@@ -1,22 +1,33 @@
 name: Deploy Nginx Container
 
-on:
-  push:
-    branches: [main]
+on:  
+  push:  
+    branches: [main]  
 
-jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
+jobs:  
+  build-and-deploy:  
+    runs-on: ubuntu-latest  
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    steps:  
+      - name: Checkout Repository  
+        uses: actions/checkout@v4  
 
-      - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Log in to Docker Hub  
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  
 
-      - name: Build and Push Docker Image
+      - name: Build Docker Image  
+        run: docker build -t mydockerhubuser/nginx:latest .  
+
+      - name: Run Docker Container  
+        run: |  
+          docker run -d --name nginx-container -p 8080:80 mydockerhubuser/nginx:latest  
+
+      - name: Verify Docker Container is Running  
+        run: |  
+          docker ps -a   # This lists all running containers
+          docker logs nginx-container  # Shows the logs for the nginx container to verify it's running
+
+      - name: Test Nginx is Serving Page  
         run: |
-          docker build -t mydockerhubuser/nginx:latest .
-          docker push mydockerhubuser/nginx:latest
+          curl --silent --fail http://localhost:8080 | grep "Welcome to nginx!"  
 
