@@ -25,4 +25,4 @@ jobs:
 
       - name: Test SSH Connection
         run: |
-          ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa vikasdh@$172.31.219.76 "echo 'SSH connection successful'"
+          ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa vikasdh@172.31.219.76 "echo 'SSH connection successful'"
